@@ -9,7 +9,7 @@ image:
   pullPolicy: IfNotPresent
 
   # -- Specify secrets containing credentials for pulling images
-  pullSecrets: []
+  pullSecrets: [ ]
   #  - name: name-of-secret
 
   # -- Determine if the image should run as `root` or user `athens`
@@ -36,34 +36,34 @@ strategy:
 
 service:
   # -- Add annotations to the service
-  annotations: {}
+  annotations: { }
   # -- Port as exposed by the service
   servicePort: 80
   # -- Type of service; valid values are "ClusterIP", "LoadBalancer", and
   # "NodePort". "ClusterIP" is sufficient in the case when the Proxy will be used
   # from within the cluster. To expose externally, consider a "NodePort" or "LoadBalancer" service or use an "Ingress".
   type: ClusterIP
-  # Optional configuration if service is of type "NodePort"
-  # nodePort:
+    # Optional configuration if service is of type "NodePort"
+    # nodePort:
     # -- Specify the nodePort in allowable range (e.g. 30000 - 32767 on minikube)
-    # port: 30080
+  # port: 30080
 
 ingress:
   # -- Create an Ingress resource for athens
   enabled: false
-  annotations: {}
+  annotations: { }
   className: ""
   # -- Provide an array of values for the ingress host mapping
-  hosts: []
+  hosts: [ ]
     # - host: athens-proxy.local
     #   paths:
     #   - path: /
-    #     pathType: ImplementationSpecific
+  #     pathType: ImplementationSpecific
   # Provide a base64 encoded cert for TLS use
-  tls: []
+  tls: [ ]
     # - hosts:
     #   - athens-proxy.local
-    #   secretName: athens-proxy.local-tls
+  #   secretName: athens-proxy.local-tls
 
 storage:
   # -- Storage type to use. For a single instance a PVC may be sufficient
@@ -111,23 +111,23 @@ priorityClassName: ""
 # -- Container security context configuration.
 # see API reference: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#securitycontext-v1-core.
 # This will override the `image.runAsNonRoot` settings in the specified container if `runAsUser` or `runAsGroup` are set
-securityContext: {}
+securityContext: { }
   # allowPrivilegeEscalation: false
-  # runAsNonRoot: true
+# runAsNonRoot: true
 
 # -- Init container security context configuration
-initContainerSecurityContext: {}
+initContainerSecurityContext: { }
   # allowPrivilegeEscalation: false
-  # runAsNonRoot: true
+# runAsNonRoot: true
 
 # -- Set environment variables to be passed to athens pods
-configEnvVars: []
+configEnvVars: [ ]
 
 # -- Add extra annotations to the athens pods
-annotations: {}
+annotations: { }
 
 # -- Add extra labels to all resources
-extraLabels: {}
+extraLabels: { }
 
 # HTTP basic auth
 basicAuth:
@@ -167,7 +167,7 @@ upstreamProxy:
 jaeger:
   # -- Deploy a jaeger "all-in-one" pod for tracing
   enabled: false
-  annotations: {}
+  annotations: { }
   # -- Type of service; valid values are "ClusterIP", "LoadBalancer", and "NodePort".
   type: ClusterIP
   image:
@@ -186,7 +186,7 @@ tracing:
   type: "jaeger"
 
 # -- Configuration for private git servers that will provide ssh and git config to athens in a ConfigMap
-sshGitServers: []
+sshGitServers: [ ]
   ## Private git servers over ssh
   ## to enable uncomment lines with single hash below
   ## hostname of the git server
@@ -204,7 +204,7 @@ sshGitServers: []
   ## ssh private key from the existing secret (to be added separately in "Secret" Resource)
   #   existingSecret:
   #     name: ssh-keys
-  #     subPath: secret.id_rsa
+#     subPath: secret.id_rsa
 
 # -- Specify the number of go workers
 goGetWorkers: 3
@@ -225,21 +225,21 @@ metrics:
 serviceAccount:
   # -- Create a ServiceAccount
   create: true
-  annotations: {}
+  annotations: { }
   # name: "athens-proxy"
 
 # -- see https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling
-nodeSelector: {}
+nodeSelector: { }
 
 # -- see https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling
-tolerations: []
+tolerations: [ ]
 
 # -- see https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling
-affinity: {}
+affinity: { }
 
 # -- Define resources for athens pods.
 # see https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources
-resources: {}
+resources: { }
 #  limits:
 #    cpu: 100m
 #    memory: 64Mi
@@ -248,7 +248,7 @@ resources: {}
 #    memory: 64Mi
 
 # -- Define resources for the init container of athens
-intiContainerResources: {}
+intiContainerResources: { }
 #  limits:
 #    cpu: 100m
 #    memory: 64Mi
@@ -271,7 +271,7 @@ autoscaling:
   # see https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/
   apiVersionOverride: ""
   # -- Define scaling behavior for HPA
-  behavior: {}
+  behavior: { }
     # scaleDown:
     #  stabilizationWindowSeconds: 300
     #  policies:
@@ -283,4 +283,8 @@ autoscaling:
     #   policies:
     #   - type: Pods
     #     value: 2
-    #     periodSeconds: 60
+  #     periodSeconds: 60
+
+volumeMounts: []
+
+volumes: []
